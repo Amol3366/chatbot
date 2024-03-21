@@ -11,3 +11,21 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Activate bot Form
+  steps:
+  - action: utter_first_layer
+  - action: bot_form
+  - active_loop: bot_form
+
+- rule: Submit bot Form
+  condition:
+  - active_loop: bot_form
+  steps:
+  - action: bot_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit
+  - action: action_restart
+

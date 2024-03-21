@@ -8,6 +8,32 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - selection_1
+
+entities:
+- options
+
+slots:
+  choices_1:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entit
+      entity: options
+
+  choices_2:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: options
+
+forms:
+  bot_form:
+    required_slots:
+    - choices_1
+    - choices_2
+
 
 responses:
   utter_greet:
@@ -28,6 +54,62 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_first_layer:
+  - text: |
+      Greetings...
+       You are now connected to the Unified Information Centre of the Tamil Nadu Registration Department.
+       We provide information support for the following services.
+       1. Information Videos on IGR Services
+       2. Sample documents for IGR Services
+       3. Stamp Duty and Fees Details
+  
+  utter_ask_2nd_layer_1:
+  - text: |-
+      You have selected option 1. Information Videos of IGR Services.
+       So, You can select any one of the following to know more..
+       1. Information Video about Department 
+       2. Information Video for applying EC
+       3. Information Video for User Registration
+       4. Information Video for ePayment
+ 
+      5. Go Back
+ 
+  utter_ask_2nd_layer_2:
+  - text: |-
+      You have selected option 2. Information Videos of IGR Services.
+       So, You can select any one of the following to know more..
+       1. Link for Registration Department
+       2. Sample formats of deeds
+       3. Stamp Duty and Fees
+       4. Go Back
+
+  utter_ask_2nd_layer_3:
+  - text: |-
+      You have selected option 2. Information Videos of IGR Services.
+       So, You can select any one of the following to know more..
+       1. stamp Duty
+       2. Stamp Fees
+       3. Go Back
+ 
+  utter_did_that_help:
+  - text: Did that help you?
+ 
+  utter_happy:
+  - text: Great, carry on!
+ 
+  utter_submit:
+  - text: |-
+      Thank you for using service of Unified Information Centre of the Tamil Nadu Registration Department..
+       Bye
+
+
+actions:
+- utter_first_layer
+- utter_greet
+- utter_submit
+- validate_bot_form
+
 
 session_config:
   session_expiration_time: 60
